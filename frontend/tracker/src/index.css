@@ -1,68 +1,329 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --primary-color: #ff4500; /* Reddit Orange */
+  --secondary-color: #0079d3; /* Reddit Blue */
+  --background-color: #f0f2f5; /* Lighter gray */
+  --card-background-color: #ffffff;
+  --text-color: #1c1c1c;
+  --text-muted-color: #555;
+  --border-color: #dae0e6;
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --border-radius: 8px;
+  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --box-shadow-hover: 0 6px 16px rgba(0, 0, 0, 0.12);
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
+
 
 body {
+  font-family: var(--font-family);
   margin: 0;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+.app-container {
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.app-header {
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 30px;
+  color: var(--primary-color);
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.app-header img {
+  height: 50px;
+  width: 50px;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+.app-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.search-section {
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: var(--card-background-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+.search-bar {
+  display: flex;
+  gap: 10px;
+}
+
+.search-bar input {
+  flex-grow: 1;
+  padding: 12px 15px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+.search-bar input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(255, 69, 0, 0.2);
+}
+
+
+.search-bar button {
+  padding: 12px 20px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease-in-out;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+.search-bar button:hover:not(:disabled) {
+  background-color: #e03d00; /* Darker orange */
+}
+.search-bar button:disabled {
+  background-color: #f97357;
+  cursor: not-allowed;
+}
+
+.results-section {
+  display: grid;
+  grid-template-columns: 1fr; /* Default to single column */
+  gap: 25px;
+}
+
+/* On wider screens, potentially two columns */
+@media (min-width: 768px) {
+  .results-section.has-data { /* Apply only if data is present */
+    /* grid-template-columns: 300px 1fr;  Example: sidebar for metrics */
   }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.metric-card {
+  background-color: var(--card-background-color);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  text-align: center;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+.metric-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--box-shadow-hover);
+}
+
+.metric-card .value {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 5px;
+}
+.metric-card .value.sentiment-positive { color: #2ecc71; }
+.metric-card .value.sentiment-negative { color: #e74c3c; }
+.metric-card .value.sentiment-neutral { color: #3498db; }
+
+.metric-card .label {
+  font-size: 0.9rem;
+  color: var(--text-muted-color);
+}
+.metric-card .label small {
+  display: block;
+  font-size: 0.75rem;
+}
+
+.metric-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0;
+  font-size: 0.9rem;
+  text-align: left;
+}
+.metric-card ul li {
+  margin-bottom: 5px;
+}
+
+.mentions-container {
+  background-color: var(--card-background-color);
+  padding: 25px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+.mentions-container h2 {
+  margin-top: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-color);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+
+.mentions-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.mention-item {
+  background-color: var(--background-color); /* Slightly different bg for items */
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  transition: box-shadow 0.2s ease-in-out;
+}
+.mention-item:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+
+.mention-item .mention-title a {
+  color: var(--secondary-color);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+.mention-item .mention-title a:hover {
+  text-decoration: underline;
+}
+
+.mention-meta {
+  font-size: 0.85em;
+  color: var(--text-muted-color);
+  margin-top: 8px;
+}
+.mention-meta span, .mention-meta a {
+  margin-right: 10px;
+}
+.mention-meta a {
+  color: var(--text-muted-color);
+  text-decoration: none;
+}
+.mention-meta a:hover {
+  text-decoration: underline;
+  color: var(--primary-color);
+}
+
+.status-message {
+  text-align: center;
+  padding: 30px 20px;
+  font-size: 1.1em;
+  background-color: var(--card-background-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  margin-top: 20px;
+}
+.status-message.error {
+  color: #e74c3c;
+  background-color: #fdecea;
+  border: 1px solid #e74c3c;
+}
+.status-message.loading {
+  color: var(--secondary-color);
+}
+.status-message.no-results {
+  color: var(--text-muted-color);
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 25px;
+  padding: 10px;
+}
+
+.pagination button {
+  background-color: var(--card-background-color);
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  padding: 8px 15px;
+  margin: 0 5px;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.pagination button:hover:not(:disabled) {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.pagination button:disabled {
+  color: #aaa;
+  border-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  margin: 0 10px;
+  font-size: 0.9rem;
+  color: var(--text-muted-color);
+}
+
+.search-term-display {
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+.search-term-display strong {
+  color: var(--primary-color);
+}
+
+/* Add a simple Reddit SVG for header (optional) */
+/* You can download a simple Reddit logo SVG and put it in `src/assets/reddit-logo.svg` */
+/* For example: https://iconduck.com/icons/7830/reddit-logo (download as SVG) */
+
+
+mark {
+  background-color: #ffe082; /* Light yellow highlight */
+  padding: 0.1em;
+}
+
+.mention-body {
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 5px;
+  margin-bottom: 8px;
+  white-space: pre-wrap; /* To respect newlines in comment body if any */
+  word-break: break-word;
+}
+
+.mention-type-badge {
+  font-style: italic;
+  color: #777;
+}
+
+.search-bar button.clear-button {
+  margin-left: 8px;
+  background-color: #f0f0f0;
+  color: #333;
+  border: 1px solid #ccc;
+}
+.search-bar button.clear-button:hover {
+  background-color: #e0e0e0;
+}
+.search-bar button.clear-button:disabled {
+  background-color: #f0f0f0;
+  color: #aaa;
+  cursor: not-allowed;
 }
