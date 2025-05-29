@@ -2,8 +2,8 @@
 
 Uncover Reddit's pulse instantly. This application allows you to track mentions of any term on Reddit, analyze sentiment, view aggregated metrics, and leverage Google's Gemini AI for summaries, key themes, and contextual Q&A.
 
-**Live Demo:** []
-**Video Walkthrough:** []
+**Live Demo:** [https://reddit-mention-tracker.vercel.app/]
+**Video Walkthrough:** [https://youtu.be/JuObTRygk4w]
 
 ## Features
 
