@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-eggmtx294z7_f!7q77)f3u-t&5s#ba#qdk2s7z4@a&xzme0@m)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*','https://reddit-mention-tracker-czcqbye4fkcrgaaw.canadacentral-01.azurewebsites.net']
 
 
 # Application definition
@@ -62,6 +62,7 @@ ROOT_URLCONF = "tracker.urls"
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173", 
     "http://127.0.0.1:5173",
+    "https://reddit-mention-tracker-czcqbye4fkcrgaaw.canadacentral-01.azurewebsites.net",
 ]
 
 TEMPLATES = [
