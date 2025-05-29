@@ -27,9 +27,7 @@ const MetricsDisplay: React.FC<MetricsDisplayProps> = ({ data }) => {
     <div className={`metrics-display-wrapper ${hasLLMInsights ? 'has-llm-insights' : ''}`}>
       {hasLLMInsights && (
         <section className="llm-insights-section">
-          <h2 className="section-title">
-            AI-Powered Overview
-          </h2>
+
           {data.llm_summary && (
             <div className="llm-content-block">
               <h3 className="llm-subtitle">Executive Summary</h3>

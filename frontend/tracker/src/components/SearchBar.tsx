@@ -1,4 +1,3 @@
-// src/components/SearchBar.tsx
 import React, { useState, useEffect } from 'react';
 
 interface SearchBarProps {
@@ -6,7 +5,7 @@ interface SearchBarProps {
   onClearSearch: () => void;
   isLoading: boolean;
   initialTerm?: string;
-  isLandingPage?: boolean; 
+  isLandingPage?: boolean;
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({
@@ -19,8 +18,11 @@ const SearchBar: React.FC<SearchBarProps> = ({
   const [term, setTerm] = useState(initialTerm);
 
   useEffect(() => {
-    setTerm(initialTerm);
-  }, [initialTerm]);
+    // Sync local term state if initialTerm prop changes (e.g., from URL navigation)
+    if (initialTerm !== term && !isLandingPage) { 
+        setTerm(initialTerm);
+    }
+  }, [initialTerm, isLandingPage]);
 
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -29,7 +31,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   };
 
   const handleClear = () => {
-    setTerm('');
+    setTerm(''); 
     onClearSearch();
   };
 
@@ -39,7 +41,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
         type="text"
         value={term}
         onChange={(e) => setTerm(e.target.value)}
-        placeholder={isLandingPage ? "e.g., 'Tesla', 'AI ethics', 'your brand'" : "Search Reddit mentions..."}
+        placeholder={isLandingPage ? "e.g., 'Tesla', 'AI ethics', 'your brand'" : "Search or ask about results..."}
         disabled={isLoading}
         aria-label="Search term"
       />

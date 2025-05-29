@@ -74,7 +74,7 @@ const MentionsList: React.FC<MentionsListProps> = ({ mentions, searchTerm }) => 
   }
 
   return (
-    <div className="mentions-list-container card-style">
+    <div className="mentions-list-container">
       <h2 className="section-title">
         Recent Mentions for "<HighlightedText text={searchTerm} highlight={searchTerm} />"
         <small>
