@@ -63,6 +63,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173", 
     "http://127.0.0.1:5173",
     "https://reddit-mention-tracker-czcqbye4fkcrgaaw.canadacentral-01.azurewebsites.net",
+    "https://reddit-mention-tracker.vercel.app",
 ]
 
 TEMPLATES = [
