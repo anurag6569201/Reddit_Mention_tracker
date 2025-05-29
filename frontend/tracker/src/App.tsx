@@ -1,5 +1,5 @@
 // src/App.tsx
-import React, { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import SearchBar from './components/SearchBar';
 import LandingPage from './pages/LandingPage';
